@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free professional trading calculator for funding traders. Calculate position size, risk management, leverage, liquidation price, and profit/loss instantly. Perfect for forex, crypto, and futures trading.">
+    <meta name="keywords" content="trading calculator, position size calculator, funding trader calculator, leverage calculator, risk management, forex calculator, crypto trading, liquidation price, profit loss calculator">
+    <meta name="author" content="Trading Calculator">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="theme-color" content="#0f1419">
+    <meta property="og:title" content="Free Professional Trading Calculator - Position Sizing & Risk Management">
+    <meta property="og:description" content="Calculate trading positions, leverage, stop loss, take profit, and liquidation prices instantly. Free trading tool for crypto and forex traders.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-domain.com">
+    <meta property="og:image" content="https://your-domain.com/preview-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Free Professional Trading Calculator">
+    <meta name="twitter:description" content="Instant trading calculations for position sizing, risk management, and leverage.">
+    <meta name="twitter:image" content="https://your-domain.com/preview-image.png">
+    <link rel="canonical" href="https://your-domain.com">
+    <title>Free Professional Trading Calculator - Position Sizing & Risk Management Tool</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0f1419;
+            color: #e0e0e0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #00d4ff;
+            font-size: 28px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .panel {
+            background: #1a1f2e;
+            border: 1px solid #2a3f5f;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        .panel h2 {
+            color: #00d4ff;
+            margin-bottom: 15px;
+            font-size: 16px;
+            border-bottom: 1px solid #2a3f5f;
+            padding-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 13px;
+            color: #b0b0b0;
+            font-weight: 500;
+        }
+        
+        label .unit {
+            color: #666;
+            font-size: 11px;
+            margin-left: 5px;
+        }
+        
+        input[type="number"], input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #2a3f5f;
+            background-color: #0f1419;
+            color: #e0e0e0;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+        
+        input[type="number"]:focus, input[type="text"]:focus {
+            outline: none;
+            border-color: #00d4ff;
+        }
+        
+        input[readonly] {
+            background-color: #0a0e14;
+            color: #666;
+            cursor: not-allowed;
+        }
+        
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        button {
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-calculate {
+            background-color: #00d4ff;
+            color: #0f1419;
+        }
+        
+        .btn-calculate:hover {
+            background-color: #00a8cc;
+            transform: translateY(-2px);
+        }
+        
+        .btn-reset {
+            background-color: #2a3f5f;
+            color: #e0e0e0;
+        }
+        
+        .btn-reset:hover {
+            background-color: #3a5f7f;
+        }
+        
+        .output-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #2a3f5f;
+        }
+        
+        .output-item:last-child {
+            border-bottom: none;
+        }
+        
+        .output-label {
+            font-size: 13px;
+            color: #b0b0b0;
+        }
+        
+        .output-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #e0e0e0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .output-value.highlight {
+            color: #00d4ff;
+            font-size: 18px;
+        }
+        
+        .profit {
+            color: #00c96f;
+        }
+        
+        .loss {
+            color: #ff4757;
+        }
+        
+        .warning-box {
+            background-color: #2a2a00;
+            border-left: 3px solid #ff9800;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 4px;
+            color: #ffb366;
+            font-size: 13px;
+            line-height: 1.5;
+            display: none;
+        }
+        
+        .warning-box.show {
+            display: block;
+        }
+        
+        .error-box {
+            background-color: #2a0000;
+            border-left: 3px solid #ff4757;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 4px;
+            color: #ff8899;
+            font-size: 13px;
+            line-height: 1.5;
+            display: none;
+        }
+        
+        .error-box.show {
+            display: block;
+        }
+        
+        .info-text {
+            font-size: 12px;
+            color: #666;
+            margin-top: 8px;
+            font-style: italic;
+        }
+        
+        .position-type {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .position-type label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0;
+        }
+        
+        .position-type input[type="radio"] {
+            width: auto;
+            margin-right: 8px;
+        }
+    </style>
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Professional Trading Calculator",
+        "description": "Free trading calculator for position sizing, risk management, leverage calculations",
+        "url": "https://your-domain.com",
+        "applicationCategory": "FinanceApplication",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "creator": {
+            "@type": "Organization",
+            "name": "Trading Tools"
+        },
+        "featureList": [
+            "Position Size Calculator",
+            "Risk Management Tools",
+            "Leverage Calculator",
+            "Liquidation Price Calculator",
+            "Profit/Loss Calculator",
+            "Stop Loss Calculator",
+            "Take Profit Calculator"
+        ]
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Professional Trading Calculator</h1>
+        <p class="subtitle">Free Position Sizing & Risk Management Tool for Funding Traders</p>
+        
+        <div class="grid">
+            <!-- INPUT PANEL -->
+            <div class="panel">
+                <h2>Trading Setup</h2>
+                
+                <div class="form-group">
+                    <label>Position Type</label>
+                    <div class="position-type">
+                        <label>
+                            <input type="radio" name="positionType" value="long" checked>
+                            Long
+                        </label>
+                        <label>
+                            <input type="radio" name="positionType" value="short">
+                            Short
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="accountSize">Account Size <span class="unit">USD</span></label>
+                    <input type="number" id="accountSize" placeholder="e.g., 10000" value="10000" min="0" step="1">
+                </div>
+                
+                <div class="form-group">
+                    <label for="leverage">Leverage <span class="unit">x</span></label>
+                    <input type="number" id="leverage" placeholder="e.g., 10" value="10" min="0.1" step="0.1">
+                </div>
+                
+                <div class="form-group">
+                    <label for="entryPrice">Entry Price <span class="unit">USD</span></label>
+                    <input type="number" id="entryPrice" placeholder="e.g., 50000" value="50000" min="0" step="0.01">
+                </div>
+                
+                <div class="form-group">
+                    <label for="stopLossPrice">Stop Loss Price (Optional) <span class="unit">USD</span></label>
+                    <input type="number" id="stopLossPrice" placeholder="Leave empty to calculate">
+                </div>
+                
+                <div class="form-group">
+                    <label for="riskUSD">Risk Amount (Optional) <span class="unit">USD</span></label>
+                    <input type="number" id="riskUSD" placeholder="Max loss per trade">
+                </div>
+                
+                <div class="form-group">
+                    <label for="takeProfitPrice">Take Profit Price (Optional) <span class="unit">USD</span></label>
+                    <input type="number" id="takeProfitPrice" placeholder="Leave empty to calculate">
+                </div>
+                
+                <div class="form-group">
+                    <label for="targetProfitUSD">Target Profit (Optional) <span class="unit">USD</span></label>
+                    <input type="number" id="targetProfitUSD" placeholder="Desired profit amount">
+                </div>
+                
+                <div class="form-group">
+                    <label for="positionSize">Position Size (Optional) <span class="unit">Units</span></label>
+                    <input type="number" id="positionSize" placeholder="Leave empty for auto-calculation">
+                </div>
+                
+                <div class="error-box" id="errorBox"></div>
+                <div class="warning-box" id="warningBox"></div>
+            </div>
+            
+            <!-- OUTPUT PANEL -->
+            <div class="panel">
+                <h2>Results</h2>
+                
+                <div class="output-item">
+                    <span class="output-label">Position Size</span>
+                    <span class="output-value highlight" id="outPositionSize">0.0000</span>
+                </div>
+                
+                <div class="output-item">
+                    <span class="output-label">Position Value</span>
+                    <span class="output-value" id="outPositionValue">$0.00</span>
+                </div>
+                
+                <div class="output-item">
+                    <span class="output-label">Required Margin</span>
+                    <span class="output-value" id="outRequiredMargin">$0.00</span>
+                </div>
+                
+                <div class="output-item">
+                    <span class="output-label">Max Position Size (Leverage)</span>
+                    <span class="output-value" id="outMaxPositionSize">0.0000</span>
+                </div>
+                
+                <div class="output-item">
+                    <span class="output-label">Entry Price</span>
+                    <span class="output-value" id="outEntryPrice">$0.00</span>
+                </div>
+                
+                <div class="output-item">
+                    <span class="output-label">Stop Loss Price</span>
+                    <span class="output-value loss" id="outStopLossPrice">-</span>
+                </div>
+                
+                <div class="output-item">
+                    <span class="output-label">Take Profit Price</span>
+                    <span class="output-value profit" id="outTakeProfitPrice">-</span>
+                </div>
+                
+                <div class="output-item">
+                    <span class="output-label">Risk Amount</span>
+                    <span class="output-value loss" id="outRiskAmount">$0.00</span>
+                </div>
+                
+                <div class="output-item">
+                    <span class="output-label">Profit at TP</span>
+                    <span class="output-value profit" id="outProfitAmount">$0.00</span>
+                </div>
+                
+                <div class="output-item">
+                    <span class="output-label">Risk/Reward Ratio</span>
+                    <span class="output-value" id="outRiskRewardRatio">0.00 : 1</span>
+                </div>
+                
+                <div class="output-item">
+                    <span class="output-label">Liquidation Price</span>
+                    <span class="output-value" id="outLiquidationPrice">-</span>
+                </div>
+                
+                <div class="button-group">
+                    <button class="btn-reset" onclick="resetForm()">Reset</button>
+                    <button class="btn-calculate" onclick="calculate()">Calculate</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEO Footer Section -->
+    <footer style="background-color: #0a0e14; padding: 40px 20px; margin-top: 40px; color: #888; font-size: 12px; text-align: center;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h3 style="color: #00d4ff; margin-bottom: 15px; font-size: 16px;">About This Trading Calculator</h3>
+            <p style="line-height: 1.6; margin-bottom: 15px;">
+                Our free professional trading calculator is designed for funding traders, crypto traders, forex traders, and futures traders. 
+                Calculate position sizes based on your risk management strategy, determine leverage requirements, and find liquidation prices instantly.
+                Perfect for risk management and position sizing in the crypto and forex markets.
+            </p>
+            <p style="line-height: 1.6; margin-bottom: 15px;">
+                Features include: position size calculator, leverage calculator, liquidation price calculator, stop loss calculator, take profit calculator, 
+                profit/loss calculator, and comprehensive risk management tools for professional and retail traders.
+            </p>
+            <p style="color: #666;">© 2025 Trading Calculator. Free to use. For educational purposes.</p>
+        </div>
+    </footer>
+
+    <script src="calculator.js"></script>
+</body>
+</html>
